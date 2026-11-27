@@ -1,8 +1,7 @@
-package com.gymmanagement.GymManagementSystem;
+package com.gym.GymManagementSystem;
 
 import org.springframework.boot.SpringApplication;
 
-import com.gym.GymManagementSystem.GymManagementSystemApplication;
 
 public class TestGymManagementSystemApplication {
 
