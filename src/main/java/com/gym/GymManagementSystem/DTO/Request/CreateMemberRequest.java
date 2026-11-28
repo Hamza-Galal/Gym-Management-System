@@ -15,15 +15,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterRequest {
-    @NotBlank(message = "First Name is required!")
+public class CreateMemberRequest {
+   @NotBlank(message = "First Name is required!")
+   @Size(max = 100 , message = "name must not exceed 100 characters")
     private  String firstName;
 
     @NotBlank(message = "Last Name is required!")
+    @Size(max = 100 , message = "name must not exceed 100 characters")
     private  String lastName;
 
     @NotBlank(message = "Email is required!")
     @Email(message = "Invalid Email Format!")
+    @Size(max = 150 , message = "email must not exceed 150 characters")
     private String email;
 
     @NotBlank(message = "Password is required!")
@@ -43,5 +46,4 @@ public class RegisterRequest {
     @NotNull(message = "Date Of Birth is required!")
     @Past(message = "Date Of Birth Must be in the past!")
     private LocalDate dateOfBirth;
-
 }

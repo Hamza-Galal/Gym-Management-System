@@ -11,6 +11,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.gym.GymManagementSystem.DTO.Response.ErrorResponse;
 
@@ -139,6 +140,33 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(
+        ResourceNotFoundException ex ,
+        HttpServletRequest request
+        ){
+            ErrorResponse response = new ErrorResponse();
+            response.setTimeStamp(LocalDateTime.now());
+            response.setStatus(404);
+            response.setError("Not Found");
+            response.setMessage(ex.getMessage());
+            response.setPath(request.getRequestURI());
 
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(
+        MethodArgumentTypeMismatchException ex ,
+        HttpServletRequest request
+    ){
+        ErrorResponse response = new ErrorResponse();
+        response.setTimeStamp(LocalDateTime.now());
+        response.setStatus(400);
+        response.setError("Bad Request");
+        response.setMessage("Invalid value '" + ex.getValue() +"' for parameter '" + ex.getName() +"'");
+        response.setPath(request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
     
 }

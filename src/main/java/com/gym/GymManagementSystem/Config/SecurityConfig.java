@@ -72,8 +72,8 @@ public class SecurityConfig {
                         })).authorizeHttpRequests(auth -> auth.requestMatchers(
                                 org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll().requestMatchers(
                                 org.springframework.http.HttpMethod.POST,
-                                "/api/auth/register",
-                                "/api/auth/login").permitAll().anyRequest().authenticated()).addFilterBefore(jwtAuthenticationFilter,
+                                "/api/auth/login",
+                        "/api/members").permitAll().anyRequest().authenticated()).addFilterBefore(jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class);
          return http.build();
     }
